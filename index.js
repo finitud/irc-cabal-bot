@@ -37,7 +37,7 @@ var evilBot = new irc.Client(server, nicks["evil"], evilOptions);
 function runBoringBot() {
     bot.addListener("message#", function(from, to, text, msg) {
 	if( text.match(/irc.*cabal/i) ) {
-	    console.log("FROM TO TEXT MSG\n"+ from + " " + to + " " + text + " " + msg);
+	    console.log(new Date() + ": " + from + " " + to + "\"" + text +"\"");
 	    evilBot.join(to);
 	}
     });
