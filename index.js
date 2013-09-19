@@ -36,8 +36,9 @@ var evilBot = new irc.Client(server, nicks["evil"], evilOptions);
 
 function runBoringBot() {
     bot.addListener("message#", function(from, to, text, msg) {
+	if( from === nicks["evil"] ) return;
 	if( text.match(/irc.*cabal/i) ) {
-	    console.log(new Date() + ": " + from + " " + to + "\"" + text +"\"");
+	    console.log(new Date() + ": " + from + " " + to + ", \"" + text +"\"");
 	    evilBot.join(to);
 	}
     });
@@ -49,7 +50,6 @@ function runBoringBot() {
 
 function runEvilBot() {
     evilBot.addListener("names", function(channel, nicks) {
-	console.log("names "+channel+"         "+nicks);
 	setTimeout(function () {
 	    evilBot.say(channel, "There is no IRC cabal"); 
 	    setTimeout(function () {
@@ -63,3 +63,4 @@ function runEvilBot() {
 
 runBoringBot();
 setTimeout(runEvilBot, 100);
+console.log("Starting bot...");
