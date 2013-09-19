@@ -1,8 +1,8 @@
 var irc = require('irc');
 
 var server = "irc.freenode.org";
-var channels = ["#foofoobar"];
-var debug = true;
+var channels = ["#london-hack-space-dev"];
+var debug = false;
 
 var nicks = { boring: "boringdude", evil: "irccabal" };
 

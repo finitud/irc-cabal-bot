@@ -1,2 +1,0 @@
-var irc = require('irc');
-
