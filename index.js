@@ -21,9 +21,8 @@ var evilOptions = {
     realName: 'The IRC Cabal',
     debug: debug,
     showErrors: debug,
-    autoRejoin: false,
-    autoConnect: false,
-    channels: channels
+    autoRejoin: true,
+    autoConnect: true,
 }
 
 
@@ -35,17 +34,32 @@ var evilBot = new irc.Client(server, nicks["evil"], evilOptions);
 // This is the "boring dude"
 //////////////////////////////////////////////////////////
 
-bot.addListener("message#", function(from, to, text, msg) {
-    bot.say(to, "woo");
-    evilBot.connect();
-});
-
+function runBoringBot() {
+    bot.addListener("message#", function(from, to, text, msg) {
+	if( text.match(/irc.*cabal/i) ) {
+	    console.log("FROM TO TEXT MSG\n"+ from + " " + to + " " + text + " " + msg);
+	    evilBot.join(to);
+	}
+    });
+}
 
 //////////////////////////////////////////////////////////
 // This is the evil bot
 //////////////////////////////////////////////////////////
 
-evilBot.addListener("names", function(channel, nicks) {
-    evilBot.say(channel, "YAY!");
-    evilBot.disconnect("All hail discordia!");
-});
+function runEvilBot() {
+    evilBot.addListener("names", function(channel, nicks) {
+	console.log("names "+channel+"         "+nicks);
+	setTimeout(function () {
+	    evilBot.say(channel, "There is no IRC cabal"); 
+	    setTimeout(function () {
+		evilBot.part(channel, "All hail discordia!");
+	    }, 500);
+	}, 200);
+    });
+}
+
+// RUN!
+
+runBoringBot();
+setTimeout(runEvilBot, 100);
