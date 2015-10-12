@@ -1,11 +1,11 @@
 {
-  "name": "bot",
+  "name": "irc-cabal-bot",
   "version": "0.0.1",
-  "description": "Bot",
+  "description": "An IRC bot that reminds people that there is no IRC cabal",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Alice Wyan",
   "license": "BSD-2-Clause"
 }
